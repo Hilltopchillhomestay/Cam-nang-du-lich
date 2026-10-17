@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cẩm nang khách lưu trú</title>
+
+<!-- Biểu tượng trên tab trình duyệt -->
+<link rel="icon" href="logo.svg">
+<link rel="apple-touch-icon" href="logo.svg">
+
+<!-- Ảnh và tiêu đề hiện ra khi dán link vào Zalo, Messenger, Facebook.
+     Các ứng dụng này không đọc Google Sheets, nên hãy sửa trực tiếp 3 dòng dưới đây
+     (ảnh nên là .jpg hoặc .png). -->
+<meta property="og:title" content="Homestay Của Bạn — Cẩm nang khách lưu trú">
+<meta property="og:description" content="Gợi ý ăn uống, cà phê, thiên nhiên, nhà xe và nội quy phòng ở.">
+<meta property="og:image" content="logo.svg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Đổi màu chủ đạo ở đây */
+  :root{
+    --pine:#1F3327; --cream:#F1EDE4; --paper:#FAF8F2;
+    --charcoal:#23241F; --muted:#6B6A5F; --brass:#B8842B; --brass-deep:#7A5417;
+    --sage-deep:#3F4F3B; --clay-deep:#6E3121; --line:#DED8C7;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--charcoal);font-family:'Work Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  button{font-family:inherit;}
+  .wrap{max-width:640px;margin:0 auto;padding-bottom:60px;}
+
+  header{background:var(--pine);color:var(--paper);padding:22px 20px 0;position:sticky;top:0;z-index:20;}
+  .brand-row{display:flex;justify-content:space-between;align-items:center;gap:12px;}
+  .brand-left{display:flex;align-items:center;gap:10px;min-width:0;}
+  .brand-logo{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--paper);flex-shrink:0;}
+  .brand-name{font-family:'Fraunces',serif;font-size:23px;font-weight:500;margin:0;}
+  .brand-sub{font-size:12.5px;color:#C7D4C6;margin:4px 0 0;}
+  .lang-toggle{display:flex;border:1px solid rgba(255,255,255,0.35);border-radius:20px;overflow:hidden;flex-shrink:0;}
+  .lang-toggle button{border:none;background:transparent;color:#C7D4C6;font-size:12px;padding:6px 12px;cursor:pointer;font-weight:500;}
+  .lang-toggle button.active{background:var(--paper);color:var(--pine);}
+
+  .view-toggle{display:flex;gap:8px;margin-top:16px;padding-bottom:12px;}
+  .vt-btn{flex:1;padding:10px 6px;border-radius:10px;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.06);color:#C7D4C6;font-size:13px;font-weight:500;cursor:pointer;}
+  .vt-btn.active{background:var(--brass);border-color:var(--brass);color:#2B1C05;}
+
+  .search-box{position:relative;}
+  .search-box input{width:100%;padding:10px 14px 10px 36px;border-radius:10px;border:none;background:rgba(255,255,255,0.12);color:var(--paper);font-size:14px;font-family:inherit;}
+  .search-box input::placeholder{color:#9FB09B;}
+  .search-box input:focus{outline:1px solid var(--brass);background:rgba(255,255,255,0.18);}
+  .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:14px;height:14px;border:1.5px solid #9FB09B;border-radius:50%;}
+  .search-icon::after{content:'';position:absolute;width:6px;height:1.5px;background:#9FB09B;transform:rotate(45deg);left:10px;top:12px;}
+
+  .filters{display:flex;gap:8px;overflow-x:auto;padding:12px 20px 4px;margin:0 -20px;scrollbar-width:none;}
+  .filters::-webkit-scrollbar{display:none;}
+  .chip{flex-shrink:0;border:1px solid rgba(255,255,255,0.3);color:#C7D4C6;background:transparent;padding:7px 14px;border-radius:16px;font-size:12.5px;cursor:pointer;white-space:nowrap;}
+  .chip.active{background:var(--brass);border-color:var(--brass);color:#2B1C05;font-weight:500;}
+  .tagfilters{display:flex;gap:8px;padding:6px 0 14px;}
+  .tagchip{flex:1;text-align:center;border:1px solid rgba(255,255,255,0.25);color:#AFC0AC;background:transparent;padding:6px 4px;border-radius:8px;font-size:11px;cursor:pointer;}
+  .tagchip.active{background:rgba(255,255,255,0.15);color:var(--paper);border-color:rgba(255,255,255,0.5);}
+
+  main{padding:22px 20px 0;}
+  .status{text-align:center;padding:50px 20px;color:var(--muted);font-size:14px;}
+
+  .zone{margin-bottom:30px;}
+  .zone-head{margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:8px;}
+  .zone-title{font-family:'Fraunces',serif;font-size:19px;font-weight:500;margin:0;color:var(--pine);}
+  .zone-desc{font-size:12px;color:var(--muted);margin:4px 0 0;}
+
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;}
+  .card-name{font-family:'Fraunces',serif;font-size:16px;font-weight:500;margin:0 0 4px;}
+  .card-addr{font-size:12px;color:var(--muted);margin:0 0 8px;}
+  .badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+  .tag{font-size:10.5px;padding:3px 8px;border-radius:10px;font-weight:500;white-space:nowrap;}
+  .tag-cafe{background:#EAF0E8;color:var(--sage-deep);}
+  .tag-food{background:#F3E6DE;color:var(--clay-deep);}
+  .tag-nature{background:#E3EEDC;color:#3B5C2A;}
+  .tag-transport{background:#E7E5DE;color:#4A4A42;}
+  .tag-wellness{background:#EFE6F0;color:#5C3866;}
+  .tag-play{background:#FFF1C9;color:#6B4E00;}
+  .tag-other{background:#ECEAE3;color:#55554C;}
+  .tag-home{background:var(--pine);color:#DDE7DA;}
+  .badge-trend{background:#FCE8D6;color:#8A4E10;}
+  .badge-family{background:#DCEAF5;color:#1F4D6E;}
+  .badge-nature{background:#E1EEDD;color:#33512B;}
+  .meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:12px;color:var(--muted);margin-bottom:8px;}
+  .star{color:var(--brass);}
+  .note{background:#F4EFE2;border-left:3px solid var(--brass);padding:8px 10px;font-size:12px;color:#5C4A24;border-radius:0 6px 6px 0;margin-bottom:10px;line-height:1.5;}
+  .map-btn{display:flex;align-items:center;justify-content:center;background:var(--pine);color:var(--paper);text-decoration:none;padding:9px 0;border-radius:8px;font-size:13px;font-weight:500;}
+
+  .rsection{margin-bottom:26px;}
+  .rsection-title{font-family:'Fraunces',serif;font-size:19px;font-weight:500;color:var(--pine);margin:0 0 4px;}
+  .rsection-desc{font-size:12px;color:var(--muted);margin:0 0 12px;}
+  .sub-title{font-size:12.5px;font-weight:500;color:var(--charcoal);margin:16px 0 8px;}
+
+  .wifi-card{background:var(--pine);color:var(--paper);border-radius:14px;padding:10px 18px;}
+  .wifi-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.15);}
+  .wifi-row:last-child{border-bottom:none;}
+  .wifi-label{font-size:11.5px;color:#AFC0AC;text-transform:uppercase;letter-spacing:0.5px;}
+  .wifi-value{font-family:'Fraunces',serif;font-size:17px;font-weight:500;word-break:break-all;}
+  .copy-btn{background:rgba(255,255,255,0.15);border:none;color:var(--paper);font-size:11px;padding:6px 10px;border-radius:7px;cursor:pointer;white-space:nowrap;}
+
+  .amenity-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .amenity-box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px;}
+  .amenity-box h4{font-family:'Fraunces',serif;font-size:14px;margin:0 0 8px;color:var(--pine);font-weight:500;}
+  .amenity-box ul{margin:0;padding-left:18px;font-size:12.5px;line-height:1.9;}
+
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .stat-box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center;}
+  .stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;}
+  .stat-value{font-family:'Fraunces',serif;font-size:24px;color:var(--pine);margin-top:4px;}
+
+  .ptable{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:4px 16px;}
+  .prow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:12.5px;}
+  .prow:last-child{border-bottom:none;}
+  .prow-head{font-weight:600;color:var(--muted);font-size:11px;text-transform:uppercase;}
+  .prow-sub{display:block;font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .prices{display:flex;gap:12px;flex-shrink:0;}
+  .price{color:var(--brass-deep);font-weight:500;text-align:right;min-width:72px;}
+  .price.free{color:var(--sage-deep);}
+
+  .service-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .service-name{font-family:'Fraunces',serif;font-size:15px;margin:0 0 3px;}
+  .service-note{font-size:11.5px;color:var(--muted);margin:0;}
+  .service-price{font-family:'Fraunces',serif;font-size:15px;color:var(--brass-deep);white-space:nowrap;text-align:right;}
+
+  .fee-box{background:#F4EFE2;border:1px solid #E4D8B8;border-radius:12px;padding:12px 16px;margin-top:10px;}
+  .fee-item{font-size:12.5px;color:#5C4A24;line-height:1.7;padding:6px 0;border-bottom:1px dashed #DDCEA0;}
+  .fee-item:last-child{border-bottom:none;}
+
+  .smoke-warning{display:flex;align-items:center;gap:14px;background:#FBEAEA;border:1.5px solid #E8B9B9;border-radius:12px;padding:14px 16px;}
+  .smoke-icon{font-size:28px;flex-shrink:0;}
+  .smoke-title{font-family:'Fraunces',serif;font-size:15px;color:#7A2626;margin:0 0 2px;font-weight:500;}
+  .smoke-fine{font-size:13px;color:#7A2626;font-weight:600;margin:0;}
+
+  footer{padding:24px 20px 8px;text-align:center;}
+  footer hr{border:none;border-top:1px solid var(--line);margin:0 0 16px;}
+  .foot-name{font-family:'Fraunces',serif;font-size:17px;color:var(--pine);margin:0 0 4px;}
+  .foot-line{font-size:12.5px;color:var(--muted);margin:2px 0;}
+  .foot-line a{color:var(--brass-deep);font-weight:500;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="brand-row">
+    <div class="brand-left">
+      <img class="brand-logo" id="logo" src="logo.svg" alt="">
+      <div>
+        <p class="brand-name" id="brand-name">&nbsp;</p>
+        <p class="brand-sub" id="brand-sub"></p>
+      </div>
+    </div>
+    <div class="lang-toggle">
+      <button type="button" data-lang="vi">VI</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+  <div class="view-toggle">
+    <button type="button" class="vt-btn" data-view="explore" id="tab-explore"></button>
+    <button type="button" class="vt-btn" data-view="room" id="tab-room"></button>
+  </div>
+  <div id="explore-controls">
+    <div class="search-box">
+      <span class="search-icon"></span>
+      <input id="search" type="search" autocomplete="off">
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="tagfilters" id="tagfilters"></div>
+  </div>
+</header>
+
+<main id="explore-main"></main>
+<main id="room-main" hidden></main>
+
+<footer>
+  <hr>
+  <p class="foot-name" id="foot-name"></p>
+  <p class="foot-line" id="foot-addr"></p>
+  <p class="foot-line" id="foot-phone"></p>
+</footer>
+
+</div>
+
+<script src="config.js"></script>
+<script src="du-lieu-du-phong.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
