@@ -206,7 +206,10 @@
     $('brand-name').textContent = name || ' ';
     $('brand-sub').textContent = info('mo_ta_ngan');
     if (name) document.title = name + (state.lang === 'vi' ? ' — Cẩm nang khách lưu trú' : ' — Guest guide');
-    if (info('logo')) $('logo').src = info('logo');
+    if (info('logo')) {
+      $('logo').src = info('logo');
+      document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]').forEach((l) => { l.href = info('logo'); });
+    }
     $('logo').alt = name;
 
     $('foot-name').textContent = name;

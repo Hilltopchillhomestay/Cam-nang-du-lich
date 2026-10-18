@@ -21,11 +21,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap">
 <style>
-  /* Đổi màu chủ đạo ở đây */
+  /* ================= ĐỔI MÀU Ở ĐÂY =================
+     Chỉ cần sửa các mã màu bên dưới, cả trang sẽ đổi theo. */
   :root{
-    --pine:#1F3327; --cream:#F1EDE4; --paper:#FAF8F2;
-    --charcoal:#23241F; --muted:#6B6A5F; --brass:#B8842B; --brass-deep:#7A5417;
-    --sage-deep:#3F4F3B; --clay-deep:#6E3121; --line:#DED8C7;
+    --pine:#1F3327;        /* MÀU CHỦ ĐẠO: nền đầu trang, nút Google Maps, khung WiFi, tiêu đề (nên chọn màu ĐẬM) */
+    --brass:#B8842B;       /* MÀU NHẤN: tab và bộ lọc đang chọn, ngôi sao, viền ô gợi ý (màu VỪA, không quá tối) */
+    --brass-deep:#7A5417;  /* Giá tiền, số hotline (đậm hơn màu nhấn một chút) */
+    --cream:#F1EDE4;       /* Nền toàn trang (màu RẤT NHẠT) */
+    --paper:#FAF8F2;       /* Nền các thẻ địa điểm (nhạt hơn nền trang) */
+    --line:#DED8C7;        /* Đường kẻ, viền thẻ */
+    --charcoal:#23241F;    /* Chữ chính */
+    --muted:#6B6A5F;       /* Chữ phụ (địa chỉ, giờ mở cửa) */
+
+    /* Thường không cần sửa */
+    --on-pine:rgba(255,255,255,0.72);       /* chữ nhạt trên nền màu chủ đạo */
+    --on-pine-faint:rgba(255,255,255,0.55);
+    --on-brass:#2B1C05;                      /* chữ trên nút màu nhấn */
+    --sage-deep:#3F4F3B; --clay-deep:#6E3121;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--cream);color:var(--charcoal);font-family:'Work Sans',sans-serif;-webkit-font-smoothing:antialiased;}
@@ -37,28 +49,28 @@
   .brand-left{display:flex;align-items:center;gap:10px;min-width:0;}
   .brand-logo{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--paper);flex-shrink:0;}
   .brand-name{font-family:'Fraunces',serif;font-size:23px;font-weight:500;margin:0;}
-  .brand-sub{font-size:12.5px;color:#C7D4C6;margin:4px 0 0;}
+  .brand-sub{font-size:12.5px;color:var(--on-pine);margin:4px 0 0;}
   .lang-toggle{display:flex;border:1px solid rgba(255,255,255,0.35);border-radius:20px;overflow:hidden;flex-shrink:0;}
-  .lang-toggle button{border:none;background:transparent;color:#C7D4C6;font-size:12px;padding:6px 12px;cursor:pointer;font-weight:500;}
+  .lang-toggle button{border:none;background:transparent;color:var(--on-pine);font-size:12px;padding:6px 12px;cursor:pointer;font-weight:500;}
   .lang-toggle button.active{background:var(--paper);color:var(--pine);}
 
   .view-toggle{display:flex;gap:8px;margin-top:16px;padding-bottom:12px;}
-  .vt-btn{flex:1;padding:10px 6px;border-radius:10px;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.06);color:#C7D4C6;font-size:13px;font-weight:500;cursor:pointer;}
-  .vt-btn.active{background:var(--brass);border-color:var(--brass);color:#2B1C05;}
+  .vt-btn{flex:1;padding:10px 6px;border-radius:10px;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.06);color:var(--on-pine);font-size:13px;font-weight:500;cursor:pointer;}
+  .vt-btn.active{background:var(--brass);border-color:var(--brass);color:var(--on-brass);}
 
   .search-box{position:relative;}
   .search-box input{width:100%;padding:10px 14px 10px 36px;border-radius:10px;border:none;background:rgba(255,255,255,0.12);color:var(--paper);font-size:14px;font-family:inherit;}
-  .search-box input::placeholder{color:#9FB09B;}
+  .search-box input::placeholder{color:var(--on-pine-faint);}
   .search-box input:focus{outline:1px solid var(--brass);background:rgba(255,255,255,0.18);}
-  .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:14px;height:14px;border:1.5px solid #9FB09B;border-radius:50%;}
-  .search-icon::after{content:'';position:absolute;width:6px;height:1.5px;background:#9FB09B;transform:rotate(45deg);left:10px;top:12px;}
+  .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:14px;height:14px;border:1.5px solid var(--on-pine-faint);border-radius:50%;}
+  .search-icon::after{content:'';position:absolute;width:6px;height:1.5px;background:var(--on-pine-faint);transform:rotate(45deg);left:10px;top:12px;}
 
   .filters{display:flex;gap:8px;overflow-x:auto;padding:12px 20px 4px;margin:0 -20px;scrollbar-width:none;}
   .filters::-webkit-scrollbar{display:none;}
-  .chip{flex-shrink:0;border:1px solid rgba(255,255,255,0.3);color:#C7D4C6;background:transparent;padding:7px 14px;border-radius:16px;font-size:12.5px;cursor:pointer;white-space:nowrap;}
-  .chip.active{background:var(--brass);border-color:var(--brass);color:#2B1C05;font-weight:500;}
+  .chip{flex-shrink:0;border:1px solid rgba(255,255,255,0.3);color:var(--on-pine);background:transparent;padding:7px 14px;border-radius:16px;font-size:12.5px;cursor:pointer;white-space:nowrap;}
+  .chip.active{background:var(--brass);border-color:var(--brass);color:var(--on-brass);font-weight:500;}
   .tagfilters{display:flex;gap:8px;padding:6px 0 14px;}
-  .tagchip{flex:1;text-align:center;border:1px solid rgba(255,255,255,0.25);color:#AFC0AC;background:transparent;padding:6px 4px;border-radius:8px;font-size:11px;cursor:pointer;}
+  .tagchip{flex:1;text-align:center;border:1px solid rgba(255,255,255,0.25);color:var(--on-pine);background:transparent;padding:6px 4px;border-radius:8px;font-size:11px;cursor:pointer;}
   .tagchip.active{background:rgba(255,255,255,0.15);color:var(--paper);border-color:rgba(255,255,255,0.5);}
 
   main{padding:22px 20px 0;}
@@ -81,7 +93,7 @@
   .tag-wellness{background:#EFE6F0;color:#5C3866;}
   .tag-play{background:#FFF1C9;color:#6B4E00;}
   .tag-other{background:#ECEAE3;color:#55554C;}
-  .tag-home{background:var(--pine);color:#DDE7DA;}
+  .tag-home{background:var(--pine);color:var(--on-pine);}
   .badge-trend{background:#FCE8D6;color:#8A4E10;}
   .badge-family{background:#DCEAF5;color:#1F4D6E;}
   .badge-nature{background:#E1EEDD;color:#33512B;}
@@ -98,7 +110,7 @@
   .wifi-card{background:var(--pine);color:var(--paper);border-radius:14px;padding:10px 18px;}
   .wifi-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.15);}
   .wifi-row:last-child{border-bottom:none;}
-  .wifi-label{font-size:11.5px;color:#AFC0AC;text-transform:uppercase;letter-spacing:0.5px;}
+  .wifi-label{font-size:11.5px;color:var(--on-pine);text-transform:uppercase;letter-spacing:0.5px;}
   .wifi-value{font-family:'Fraunces',serif;font-size:17px;font-weight:500;word-break:break-all;}
   .copy-btn{background:rgba(255,255,255,0.15);border:none;color:var(--paper);font-size:11px;padding:6px 10px;border-radius:7px;cursor:pointer;white-space:nowrap;}
 
