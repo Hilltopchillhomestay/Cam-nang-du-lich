@@ -77,6 +77,13 @@
     .filters{flex-wrap:wrap;overflow:visible;margin:0;padding:10px 0 2px;}
     .filters.more{-webkit-mask-image:none;mask-image:none;}
   }
+  /* Điện thoại: mờ dần ở mép phải để báo còn nút phía sau (tự tắt khi đã vuốt tới cuối) */
+  .filters.more{-webkit-mask-image:linear-gradient(to right,#000 82%,transparent);mask-image:linear-gradient(to right,#000 82%,transparent);}
+  /* Máy tính dùng chuột: không kéo ngang được nên cho các nút tự xuống hàng */
+  @media (hover:hover) and (pointer:fine){
+    .filters{flex-wrap:wrap;overflow:visible;margin:0;padding:10px 0 2px;}
+    .filters.more{-webkit-mask-image:none;mask-image:none;}
+  }
   .chip{flex-shrink:0;border:1px solid rgba(255,255,255,0.3);color:var(--on-pine);background:transparent;padding:7px 14px;border-radius:16px;font-size:12.5px;cursor:pointer;white-space:nowrap;}
   .chip.active{background:var(--brass);border-color:var(--brass);color:var(--on-brass);font-weight:500;}
   .chip-transport{margin-left:12px;} /* tách nhóm Di chuyển khỏi các nhóm ăn chơi */
