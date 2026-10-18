@@ -8,7 +8,7 @@
     vi: {
       loading: 'Đang tải dữ liệu…', loadError: 'Chưa tải được dữ liệu. Vui lòng tải lại trang sau ít phút.',
       search: 'Tìm địa điểm…', all: 'Tất cả', empty: 'Không tìm thấy địa điểm phù hợp',
-      tabExplore: '🤯 Khám phá quanh đây', tabRoom: '🏠 Phòng ở & Nội quy',
+      tabExplore: '🤯 Khám phá quanh đây', tabRoom: '🏡 Phòng ở & Nội quy',
       chips: { z1: 'Dưới 1 km', z2: '1–2,5 km', z3: '2,5–5 km', z4: 'Trên 5 km', zb: '🚌 Nhà xe' },
       zones: { z1: 'Ngay cạnh (dưới 1 km)', z2: 'Trung tâm (1–2,5 km)', z3: 'Mở rộng (2,5–5 km)', z4: 'Xa & thiên nhiên (trên 5 km)', zb: 'Bến xe & Limousine' },
       zdesc: {
@@ -29,7 +29,7 @@
     en: {
       loading: 'Loading…', loadError: 'Could not load the guide. Please reload the page in a few minutes.',
       search: 'Search a place…', all: 'All', empty: 'No matching places',
-      tabExplore: '🤯 Explore nearby', tabRoom: '🏠 Room & House rules',
+      tabExplore: '🤯 Explore nearby', tabRoom: '🏡 Room & House rules',
       chips: { z1: 'Under 1 km', z2: '1–2.5 km', z3: '2.5–5 km', z4: 'Over 5 km', zb: '🚌 Buses' },
       zones: { z1: 'Right next door (under 1 km)', z2: 'City centre (1–2.5 km)', z3: 'Further out (2.5–5 km)', z4: 'Far & nature (over 5 km)', zb: 'Bus & limousine offices' },
       zdesc: {
