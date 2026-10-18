@@ -283,6 +283,12 @@
     $('filters').innerHTML = chips.map(([c, label]) =>
       '<button type="button" class="chip' + (c === 'transport' ? ' chip-transport' : '') + (state.cat === c ? ' active' : '') +
       '" data-cat="' + c + '" aria-pressed="' + (state.cat === c) + '">' + esc(label) + '</button>').join('');
+     updateFilterHint();
+  }
+  // Bật hiệu ứng mờ ở mép phải khi hàng nút còn phần bị khuất
+  function updateFilterHint() {
+  const f = $(‘filters’);
+  f.classList.toggle(‘more’, f.scrollWidth - f.clientWidth - f.scrollLeft > 4);
   }
 
   // ---------- Tab "Khám phá" ----------
@@ -494,6 +500,8 @@
     else if (b.dataset.copy != null) copy(b.dataset.copy, b);
   });
   $('search').addEventListener('input', (e) => { state.q = e.target.value; renderExplore(); });
+    $('filters').addEventListener('scroll', updateFilterHint, { passive: true });
+  window.addEventListener('resize', updateFilterHint);
 
   // ---------- Khởi động ----------
   const urlLang = new URLSearchParams(location.search).get('lang');
