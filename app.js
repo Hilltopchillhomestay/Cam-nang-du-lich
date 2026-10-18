@@ -288,7 +288,7 @@
   // Bật hiệu ứng mờ ở mép phải khi hàng nút còn phần bị khuất
   function updateFilterHint() {
   const f = $('filters');
-  f.classList.toggle(‘more’, f.scrollWidth - f.clientWidth - f.scrollLeft > 4);
+  f.classList.toggle('more', f.scrollWidth - f.clientWidth - f.scrollLeft > 4);
   }
 
   // ---------- Tab "Khám phá" ----------
