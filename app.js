@@ -22,8 +22,8 @@
       walk: (m) => '🚶 ~' + m + ' phút đi bộ', ride: (m) => '🛵 ~' + m + ' phút', pinned: '📍 Định vị trên bản đồ',
       map: 'Mở Google Maps', phone: 'Hotline', toTop: 'Về đầu trang',
       feeTitle: '📋 Chính sách phí & đền bù', feeDesc: 'Vui lòng đọc trước khi nhận phòng để hai bên minh bạch, tránh hiểu lầm khi trả phòng.',
-      smokeTitle: 'Không hút thuốc trong phòng', linen: 'Đồ vải bị bẩn / hư hỏng', mattress: '🛏️ Nệm & giường',
-      colItem: 'Hạng mục', colMild: 'Bẩn nhẹ', colSevere: 'Hư hỏng',
+      smokeTitle: 'Không hút thuốc trong phòng', linen: 'Đồ vải bị bẩn / hư hỏng', mattress: '🛏️ Nệm & giường',  electronics: '🔌 Đồ điện tử',
+      colItem: 'Hạng mục', colMild: 'Bẩn nhẹ', colSevere: 'Hư hỏng',  colRepair: 'Sửa chữa', colReplace: 'Thay mới',
       wifiTitle: '📶 WiFi', wifiNet: 'Tên mạng', wifiPass: 'Mật khẩu', copy: 'Sao chép', copied: 'Đã sao chép ✓',
       amenTitle: '🛏️ Tiện nghi & đồ dùng', amenDesc: 'Có sẵn trong phòng, dùng thoải mái', roomAmen: 'Tiện nghi phòng', careAmen: 'Đồ dùng cá nhân',
       hoursTitle: '🕒 Giờ nhận / trả phòng', hoursDesc: 'Áp dụng cho mọi đặt phòng', early: 'Nhận phòng sớm', late: 'Trả phòng trễ',
@@ -46,8 +46,8 @@
       walk: (m) => '🚶 ~' + m + ' min walk', ride: (m) => '🛵 ~' + m + ' min ride', pinned: '📍 Pinned on map',
       map: 'Open Google Maps', phone: 'Phone', toTop: 'Back to top',
       feeTitle: '📋 Fees & damage policy', feeDesc: 'Please read before check-in — it keeps things clear for everyone.',
-      smokeTitle: 'No smoking in the room', linen: 'Stained or damaged linen', mattress: '🛏️ Mattress & bed',
-      colItem: 'Item', colMild: 'Mild', colSevere: 'Damaged',
+      smokeTitle: 'No smoking in the room', linen: 'Stained or damaged linen', mattress: '🛏️ Mattress & bed',  electronics: '🔌 Electronics',
+      colItem: 'Item', colMild: 'Mild', colSevere: 'Damaged',  colRepair: 'Repair', colReplace: 'Replace',
       wifiTitle: '📶 WiFi', wifiNet: 'Network', wifiPass: 'Password', copy: 'Copy', copied: 'Copied ✓',
       amenTitle: '🛏️ Amenities', amenDesc: 'Included in your room, free to use', roomAmen: 'Room amenities', careAmen: 'Personal care items',
       hoursTitle: '🕒 Check-in / Check-out', hoursDesc: 'Applies to all bookings', early: 'Early check-in', late: 'Late check-out',
@@ -61,7 +61,7 @@
   const CAT_ORDER = ['food', 'cafe', 'nature', 'play', 'wellness', 'transport'];
   const TAGS = { 'trend': 'trend', 'gia dinh': 'family', 'thien nhien': 'nature' };
   const RULE_KINDS = [
-    ['nhan phong som', 'early'], ['tra phong tre', 'late'], ['do vai', 'linen'], ['nem', 'mattress'],
+    ['nhan phong som', 'early'], ['tra phong tre', 'late'], ['do vai', 'linen'], ['nem', 'mattress'],  ['do dien tu', 'electronics'],
     ['ghi chu', 'feeNote'], ['dich vu', 'service'], ['tien nghi', 'roomAmen'], ['do dung', 'careAmen']
   ];
   const ZONES = ['z1', 'z2', 'z3', 'z4'];
@@ -378,11 +378,12 @@
     return '<span class="price' + (free ? ' free' : '') + '">' + esc(text) + '</span>';
   }
 
-  function priceTable(rows, withHeader) {
+      function priceTable(rows, withHeader, cols) {
     const t = UI[state.lang];
+    cols = cols || [t.colMild, t.colSevere];
     const twoCols = rows.some((r) => tr(r.price2));
     const head = withHeader && twoCols
-      ? '<div class="prow prow-head"><span>' + esc(t.colItem) + '</span><span class="prices"><span class="price">' + esc(t.colMild) + '</span><span class="price">' + esc(t.colSevere) + '</span></span></div>'
+      ? '<div class="prow prow-head"><span>' + esc(t.colItem) + '</span><span class="prices"><span class="price">' + esc(cols[0]) + '</span><span class="price">' + esc(cols[1]) + '</span></span></div>'
       : '';
     return '<div class="ptable">' + head + rows.map((r) => {
       const note = tr(r.note);
@@ -446,6 +447,7 @@
     if (smoke) fees += '<div class="smoke-warning"><div class="smoke-icon">🚭</div><div><p class="smoke-title">' + esc(t.smokeTitle) + '</p><p class="smoke-fine">' + esc(smoke) + '</p></div></div>';
     if (R.linen) fees += '<p class="sub-title">' + esc(t.linen) + '</p>' + priceTable(R.linen, true);
     if (R.mattress) fees += '<p class="sub-title">' + esc(t.mattress) + '</p>' + priceTable(R.mattress, false);
+    if (R.electronics) fees += '<p class="sub-title">' + esc(t.electronics) + '</p>' + priceTable(R.electronics, true, [t.colRepair, t.colReplace]);
     if (R.feeNote) fees += '<div class="fee-box">' + R.feeNote.map((r) => '<div class="fee-item">' + esc(tr(r.name)) + '</div>').join('') + '</div>';
     if (fees) html += section('sec-fees', t.feeTitle, t.feeDesc, fees);
 
