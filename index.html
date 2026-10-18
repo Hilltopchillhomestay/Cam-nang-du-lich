@@ -13,7 +13,7 @@
      Các ứng dụng này không đọc Google Sheets, nên hãy sửa trực tiếp 3 dòng dưới đây
      (ảnh nên là .jpg hoặc .png). -->
 <meta property="og:title" content="Hilltop Chill Homestay — Cẩm nang khách lưu trú">
-<meta property="og:description" content="Gợi ý ăn uống, cà phê, thiên nhiên, nhà xe và nội quy phòng ở.">
+<meta property="og:description" content="Gợi ý ăn uống, cà phê, thiên nhiên, di chuyển và nội quy phòng ở.">
 <meta property="og:image" content="https://nguyennhatlam410.github.io/Cam-nang-du-lich/logo.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -44,7 +44,9 @@
   button{font-family:inherit;}
   .wrap{max-width:640px;margin:0 auto;padding-bottom:60px;}
 
-  header{background:var(--pine);color:var(--paper);padding:22px 20px 0;position:sticky;top:0;z-index:20;}
+  header{background:var(--pine);color:var(--paper);padding:22px 20px 14px;}
+  /* Thanh công cụ dính trên đầu khi cuộn: tab + tìm kiếm + nhóm */
+  .toolbar{background:var(--pine);position:sticky;top:0;z-index:20;padding:0 20px 8px;box-shadow:0 6px 14px -10px rgba(0,0,0,0.45);}
   .brand-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
   .brand-left{display:flex;align-items:flex-start;gap:10px;min-width:0;}
   .brand-logo{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--paper);flex-shrink:0;}
@@ -55,8 +57,8 @@
   .lang-toggle button{border:none;background:transparent;color:var(--on-pine);font-size:12px;padding:6px 12px;cursor:pointer;font-weight:500;}
   .lang-toggle button.active{background:var(--paper);color:var(--pine);}
 
-  .view-toggle{display:flex;gap:8px;margin-top:16px;padding-bottom:12px;}
-  .vt-btn{flex:1;padding:10px 6px;border-radius:10px;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.06);color:var(--on-pine);font-size:13px;font-weight:500;cursor:pointer;}
+  .view-toggle{display:flex;gap:8px;padding:10px 0;}
+  .vt-btn{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:9px 4px;border-radius:10px;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.06);color:var(--on-pine);font-size:13px;font-weight:500;cursor:pointer;}
   .vt-btn.active{background:var(--brass);border-color:var(--brass);color:var(--on-brass);}
 
   .search-box{position:relative;}
@@ -66,16 +68,33 @@
   .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:14px;height:14px;border:1.5px solid var(--on-pine-faint);border-radius:50%;}
   .search-icon::after{content:'';position:absolute;width:6px;height:1.5px;background:var(--on-pine-faint);transform:rotate(45deg);left:10px;top:12px;}
 
-  .filters{display:flex;gap:8px;overflow-x:auto;padding:12px 20px 4px;margin:0 -20px;scrollbar-width:none;}
+  .filters{display:flex;gap:8px;overflow-x:auto;padding:10px 20px 2px;margin:0 -20px;scrollbar-width:none;}
   .filters::-webkit-scrollbar{display:none;}
   .chip{flex-shrink:0;border:1px solid rgba(255,255,255,0.3);color:var(--on-pine);background:transparent;padding:7px 14px;border-radius:16px;font-size:12.5px;cursor:pointer;white-space:nowrap;}
   .chip.active{background:var(--brass);border-color:var(--brass);color:var(--on-brass);font-weight:500;}
-  .tagfilters{display:flex;gap:8px;padding:6px 0 14px;}
-  .tagchip{flex:1;text-align:center;border:1px solid rgba(255,255,255,0.25);color:var(--on-pine);background:transparent;padding:6px 4px;border-radius:8px;font-size:11px;cursor:pointer;}
-  .tagchip.active{background:rgba(255,255,255,0.15);color:var(--paper);border-color:rgba(255,255,255,0.5);}
+  .chip-transport{margin-left:12px;} /* tách nhóm Di chuyển khỏi các nhóm ăn chơi */
 
   main{padding:22px 20px 0;}
   .status{text-align:center;padding:50px 20px;color:var(--muted);font-size:14px;}
+
+  /* Lọc theo đối tượng + số kết quả */
+  .subbar{margin:-6px 0 20px;}
+  .tagfilters{display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
+  .subbar-label{font-size:12px;color:var(--muted);margin-right:2px;}
+  .tagchip{border:1px solid var(--line);background:var(--paper);color:var(--charcoal);padding:6px 11px;border-radius:16px;font-size:12px;cursor:pointer;}
+  .tagchip.active{background:var(--pine);border-color:var(--pine);color:#fff;}
+  .result-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:12.5px;color:var(--muted);}
+  .link-btn{background:none;border:none;color:var(--brass-deep);font-weight:600;font-size:12.5px;padding:6px 0;cursor:pointer;text-decoration:underline;}
+
+  /* Thẻ dẫn sang dịch vụ thuê xe của homestay */
+  .promo{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--paper);border:1px dashed var(--brass);border-radius:12px;padding:12px 14px;margin-bottom:22px;cursor:pointer;color:var(--charcoal);}
+  .promo-icon{font-size:24px;}
+  .promo-body{flex:1;display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--muted);}
+  .promo-body b{font-size:14px;color:var(--charcoal);font-weight:600;}
+  .promo-cta{color:var(--brass-deep);font-weight:600;font-size:13px;white-space:nowrap;}
+
+  /* Viền khi dùng bàn phím */
+  :focus-visible{outline:2px solid var(--brass);outline-offset:2px;}
 
   .zone{margin-bottom:30px;}
   .zone-head{margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:8px;}
@@ -85,6 +104,7 @@
   .card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;}
   .card-name{font-family:'Fraunces',serif;font-size:16px;font-weight:500;margin:0 0 4px;}
   .card-addr{font-size:12px;color:var(--muted);margin:0 0 8px;}
+  .card-name-orig{font-size:12px;color:var(--muted);font-style:italic;margin:-2px 0 4px;}
   .badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
   .tag{font-size:10.5px;padding:3px 8px;border-radius:10px;font-weight:500;white-space:nowrap;}
   .tag-cafe{background:#EAF0E8;color:var(--sage-deep);}
@@ -103,7 +123,7 @@
   .note{background:#F4EFE2;border-left:3px solid var(--brass);padding:8px 10px;font-size:12px;color:#5C4A24;border-radius:0 6px 6px 0;margin-bottom:10px;line-height:1.5;}
   .map-btn{display:flex;align-items:center;justify-content:center;background:var(--pine);color:var(--paper);text-decoration:none;padding:9px 0;border-radius:8px;font-size:13px;font-weight:500;}
 
-  .rsection{margin-bottom:26px;}
+  .rsection{margin-bottom:26px;scroll-margin-top:76px;}
   .rsection-title{font-family:'Fraunces',serif;font-size:19px;font-weight:500;color:var(--pine);margin:0 0 4px;}
   .rsection-desc{font-size:12px;color:var(--muted);margin:0 0 12px;}
   .sub-title{font-size:12.5px;font-weight:500;color:var(--charcoal);margin:16px 0 8px;}
@@ -179,6 +199,9 @@
       <button type="button" data-lang="en">EN</button>
     </div>
   </div>
+</header>
+
+<div class="toolbar">
   <div class="view-toggle">
     <button type="button" class="vt-btn" data-view="explore" id="tab-explore"></button>
     <button type="button" class="vt-btn" data-view="room" id="tab-room"></button>
@@ -189,9 +212,8 @@
       <input id="search" type="search" autocomplete="off">
     </div>
     <div class="filters" id="filters"></div>
-    <div class="tagfilters" id="tagfilters"></div>
   </div>
-</header>
+</div>
 
 <main id="explore-main"></main>
 <main id="room-main" hidden></main>
