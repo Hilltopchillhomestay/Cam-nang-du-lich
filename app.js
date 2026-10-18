@@ -15,7 +15,7 @@
         z0: 'Bạn đang ở đây', z1: 'Đi bộ khoảng 3–12 phút', z2: 'Xe máy khoảng 5–10 phút',
         z3: 'Xe máy khoảng 10–15 phút', z4: 'Khoảng 20–30 phút, hợp đi cả ngày', zb: 'Sắp xếp từ gần đến xa, tiện đặt vé đi tỉnh khác'
       },
-      tags: { trend: '🔥 Trend', family: '👨‍👩‍👧 Gia đình', nature: '🏝️ Thiên nhiên' },
+      tags: { trend: '🔥 Trend', family: '👩‍❤️‍💋‍👩 Gia đình', nature: '🏝️ Thiên nhiên' },
       cats: { cafe: 'Cà phê', food: 'Ăn uống', nature: 'Thiên nhiên', transport: 'Nhà xe', wellness: 'Thư giãn', play: 'Vui chơi', other: 'Khác', home: 'Bạn đang ở đây' },
       map: 'Mở Google Maps', phone: 'Hotline',
       feeTitle: '📋 Chính sách phí & đền bù', feeDesc: 'Vui lòng đọc trước khi nhận phòng để hai bên minh bạch, tránh hiểu lầm khi trả phòng.',
@@ -36,7 +36,7 @@
         z0: "You're staying here", z1: 'About a 3–12 minute walk', z2: 'About 5–10 minutes by motorbike',
         z3: 'About 10–15 minutes by motorbike', z4: 'About 20–30 minutes, good for a day trip', zb: 'Sorted near to far, for booking onward travel'
       },
-      tags: { trend: '🔥 Trending', family: '👨‍👩‍👧 Family', nature: '🏝️ Nature' },
+      tags: { trend: '🔥 Trending', family: '👩‍❤️‍💋‍👩 Family', nature: '🏝️ Nature' },
       cats: { cafe: 'Cafe', food: 'Food', nature: 'Nature', transport: 'Bus office', wellness: 'Relax', play: 'Play', other: 'Other', home: 'You are here' },
       map: 'Open Google Maps', phone: 'Phone',
       feeTitle: '📋 Fees & damage policy', feeDesc: 'Please read before check-in — it keeps things clear for everyone.',
