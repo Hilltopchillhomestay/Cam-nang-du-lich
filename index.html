@@ -12,9 +12,9 @@
 <!-- Ảnh và tiêu đề hiện ra khi dán link vào Zalo, Messenger, Facebook.
      Các ứng dụng này không đọc Google Sheets, nên hãy sửa trực tiếp 3 dòng dưới đây
      (ảnh nên là .jpg hoặc .png). -->
-<meta property="og:title" content="Homestay Của Bạn — Cẩm nang khách lưu trú">
+<meta property="og:title" content="Hilltop Chill Homestay — Cẩm nang khách lưu trú">
 <meta property="og:description" content="Gợi ý ăn uống, cà phê, thiên nhiên, nhà xe và nội quy phòng ở.">
-<meta property="og:image" content="logo.jpg">
+<meta property="og:image" content="https://nguyennhatlam410.github.io/Cam-nang-du-lich/logo.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -152,6 +152,11 @@
   .foot-name{font-family:'Fraunces',serif;font-size:17px;color:var(--pine);margin:0 0 4px;}
   .foot-line{font-size:12.5px;color:var(--muted);margin:2px 0;}
   .foot-line a{color:var(--brass-deep);font-weight:500;text-decoration:none;}
+  /* ===== Nút về đầu trang ===== */
+  .to-top{position:fixed;right:16px;bottom:20px;width:46px;height:46px;border-radius:50%;border:none;
+    background:var(--pine);color:#fff;font-size:22px;box-shadow:0 4px 14px rgba(0,0,0,0.25);cursor:pointer;z-index:30;
+    opacity:0;pointer-events:none;transition:opacity .2s;}
+  .to-top.show{opacity:1;pointer-events:auto;}
 </style>
 </head>
 <body>
@@ -200,5 +205,18 @@
 <script src="config.js"></script>
 <script src="du-lieu-du-phong.js"></script>
 <script src="app.js"></script>
+<!-- ===== Nút về đầu trang ===== -->
+<button type="button" class="to-top" id="to-top" aria-label="Về đầu trang">↑</button>
+<script>
+  (function () {
+    var nut = document.getElementById('to-top');
+    window.addEventListener('scroll', function () {
+      nut.classList.toggle('show', window.scrollY > window.innerHeight * 0.8);
+    });
+    nut.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+</script>
 </body>
 </html>
